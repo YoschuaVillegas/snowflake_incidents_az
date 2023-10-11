@@ -7,7 +7,9 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@azure/communication-email": "^1.0.0",
     "@azure/functions": "^4.0.0",
+    "@azure/identity": "^3.3.1",
     "axios": "^1.5.1"
   },
   "main": "src/functions/*.js"

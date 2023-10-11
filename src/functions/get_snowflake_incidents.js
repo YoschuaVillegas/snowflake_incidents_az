@@ -1,5 +1,8 @@
 const { app } = require('@azure/functions');
 const axios = require('axios');
+const { EmailClient } = require("@azure/communication-email");
+const connectionString = `endpoint=https://snowflake-outages-comm-service.unitedstates.communication.azure.com/;accesskey=69wk1Mo5Z5iYPWy5E9ahgyrufwe7XENPfoxuXV7toEcqA43m6b7E4FGLqWfSrdnxkNwMlsmk2CneM6cUOA6+Zw==`;
+const client = new EmailClient(connectionString);
 app.http('get_snowflake_incidents', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
@@ -23,6 +26,29 @@ app.http('get_snowflake_incidents', {
             <td>${component.impact}</td>
             </tr>`
         });
+        const message = {
+          senderAddress: "DoNotReply@b44f4ee9-075c-4277-9905-3755bdbba3e1.azurecomm.net",
+          content: {
+            subject: "Incidents Report on Snowflake Outages",
+            html: `<b>This is a test message</b>"`,
+          },
+          recipients: {
+            to: [
+              {
+                address: "yoschua_villegas@hakkoda.io",
+                displayName: "Yoschua Villegas",
+              },
+              {
+                address: "yeffren@gmail.com",
+                displayName: "Yeffren Villegas",
+              },
+              
+            ],
+          },
+        };
+        
+        const poller = await client.beginSend(message);
+        const email_response = await poller.pollUntilDone();
 
           } catch (error) {
             // If the promise rejects, an error will be thrown and caught here
