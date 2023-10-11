@@ -29,8 +29,8 @@ app.http('get_snowflake_incidents', {
         const message = {
           senderAddress: "DoNotReply@b44f4ee9-075c-4277-9905-3755bdbba3e1.azurecomm.net",
           content: {
-            subject: "Incidents Report on Snowflake Outages",
-            html: `<b>This is a test message</b>"`,
+            subject: "ATTENTION REQUIRED: Incidents Report on Snowflake Outages",
+            html: `<b>The following report shows the most recent incidents occured on snowflake and may require your attention</b></br>${table}`,
           },
           recipients: {
             to: [
@@ -38,11 +38,6 @@ app.http('get_snowflake_incidents', {
                 address: "yoschua_villegas@hakkoda.io",
                 displayName: "Yoschua Villegas",
               },
-              {
-                address: "yeffren@gmail.com",
-                displayName: "Yeffren Villegas",
-              },
-              
             ],
           },
         };
