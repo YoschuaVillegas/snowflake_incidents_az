@@ -17,14 +17,23 @@ app.http('get_snowflake_incidents', {
            //build the response as HTML 
            res = response.data.page.time_zone;
            updated_at=response.data.page.updated_at; 
+      
            const components = response.data.incidents;
-           context.log(components.length);
+          /*function checkRegion(region) {
+            return region.includes("Azure");
+          }*/
+
+         // const components_filtered=components.filter(checkRegion(components.name));
+
            var table="<table style=><tr><th>Name</th><th>Status</th><th>Created_at</th><th>Updated_at</th><th>Monitoring_at</th><th>Resolved_at</th><th>Impact</th></tr>"
 
            components.forEach(function(component) {
-            table+=`<tr><td>${component.name}</td><td>${component.status}</td><td>${component.created_at}</td><td>${component.updated_at}</td><td>${component.monitoring_at}</td><td>${component.resolved_at}</td>
+            if((component.name).toLowerCase().includes("azure")){
+              table+=`<tr><td>${component.name}</td><td>${component.status}</td><td>${component.created_at}</td><td>${component.updated_at}</td><td>${component.monitoring_at}</td><td>${component.resolved_at}</td>
             <td>${component.impact}</td>
             </tr>`
+            }
+            
         });
         const message = {
           senderAddress: "DoNotReply@b44f4ee9-075c-4277-9905-3755bdbba3e1.azurecomm.net",
